@@ -2,7 +2,8 @@
 
 namespace App\Enums;
 
-enum HttpErrors: int {
+enum HttpErrors: int
+{
     case BadRequest = 400;
     case Success = 200;
 }
