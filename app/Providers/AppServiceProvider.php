@@ -22,33 +22,33 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Response::macro('success', function ($data, string $message = null, int $status = HttpErrors::Sussuces) : JsonResponse {
+        Response::macro('success', function ($data, ?string $message = null, HttpErrors $status = HttpErrors::Success): JsonResponse {
             return Response::json([
                 'status' => 'OK',
                 'message' => $message,
-                'data'    => $data,
-            ], $status);
-        });
-
-        Response::macro('error', function ($message, array $data = null, HttpErrors $status = HttpErrors::BadRequest) : JsonResponse {
-            return Response::json([
-                'status' => 'error',
-                'message' => $message,
-                'data' => $data
+                'data' => $data,
             ], $status->value);
         });
 
-        Response::macro('unauthenticated', function () : JsonResponse {
+        Response::macro('error', function ($message, ?array $data = null, HttpErrors $status = HttpErrors::BadRequest): JsonResponse {
+            return Response::json([
+                'status' => 'error',
+                'message' => $message,
+                'data' => $data,
+            ], $status->value);
+        });
+
+        Response::macro('unauthenticated', function (): JsonResponse {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthenticated'
+                'message' => 'Unauthenticated',
             ], 401);
         });
 
-        Response::macro('unauthorized', function () : JsonResponse {
+        Response::macro('unauthorized', function (): JsonResponse {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized'
+                'message' => 'Unauthorized',
             ], 403);
         });
     }

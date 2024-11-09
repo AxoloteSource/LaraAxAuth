@@ -3,44 +3,28 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\EmailTypeEnum;
-use App\Enums\RoleIdEnum;
-use App\Enums\UserStatusIdEnum;
+use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'role_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -54,44 +38,29 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    /*public static function store(
-        string $firstName,
-        string $lastName,
+    public static function register(
         string $email,
+        string $name,
         string $password,
-        string $nickname,
-        ?string $phoneCodeIso2 = null,
-        ?string $phoneNumber = null,
-        int $roleIdEnum,
-        UserStatusIdEnum $userStatusId = UserStatusIdEnum::PendingUploadDocuments,
-        ?string $referralNickName = null
+        int $roleId = RoleEnum::Customer->value
     ): User {
-        $user = new User();
-        $user->first_name = $firstName;
-        $user->last_name = $lastName;
+        $user = new User;
         $user->email = $email;
+        $user->name = $name;
+        $user->role_id = $roleId;
         $user->password = bcrypt($password);
-        $user->nickname = $nickname;
-        $user->user_status_id = $userStatusId->value;
-        $user->role_id = $roleIdEnum->value;
-
-        if ($phoneCodeIso2 && $phoneNumber) {
-            $phoneCode = PhoneCode::where('phone_code', $phoneCodeIso2)->first();
-            $user->phone_code_id = $phoneCode->id;
-            $user->phone_number = $phoneNumber;
-        }
-
         $user->save();
-        $user->userStatus;
-        $user->phoneCode;
-
-        self::prepareQueue(EmailTypeEnum::NewUser, $user, $email);
-        if (!$referralNickName) {
-            return $user;
-        }
-
-        User::findByNickName($referralNickName)?->registerReferrals($user);
 
         return $user;
-    }*/
+    }
+
+    public static function login(
+        string $email,
+        string $password
+    ): ?User {
+        if (! auth()->attempt(['email' => $email, 'password' => $password])) {
+            return null;
+        }
+        return User::where('email', $email)->first();
+    }
 }
