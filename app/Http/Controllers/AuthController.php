@@ -40,4 +40,19 @@ class AuthController extends Controller
             ])
             : Response::error(__('Invalid credentials .'));
     }
+    public function logout()
+    {
+        $userSesion = auth()->user()->logout();
+    
+        if ($userSesion === null) {
+            return Response::error(__('No active session.'));
+        }
+
+        return $userSesion ? Response::success([
+            'success' => $userSesion,
+            'message' => 'Successfully logged out.'       
+        ])
+        : Response::error(__('Failed to logout. .'));
+    }
+    
 }

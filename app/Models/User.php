@@ -63,4 +63,15 @@ class User extends Authenticatable
         }
         return User::where('email', $email)->first();
     }
+
+    public function logout()
+    {
+        $userSesion = auth()->user();
+
+        if (!$userSesion) {
+            return null;
+        }
+
+        return $userSesion->currentAccessToken()->delete();
+    } 
 }
