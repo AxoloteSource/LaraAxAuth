@@ -10,4 +10,9 @@ class FormRequest extends BaseFormRequest
     {
         return true;
     }
+
+    public function getData(): array
+    {
+        return $this->validated();
+    }
 }

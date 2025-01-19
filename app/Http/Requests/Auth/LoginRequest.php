@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
+
+use App\Http\Requests\FormRequest;
 
 class LoginRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'email' => 'required|exists:users,email|email:rfc',
+            'email' => '',
             'password' => 'required|string',
         ];
     }

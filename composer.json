@@ -5,12 +5,14 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "spatie/laravel-data": "^4.11"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.4",
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.18",
         "laravel/sail": "^1.26",

@@ -18,11 +18,6 @@ class RoleSeeder extends Seeder
                 'name' => 'Root',
                 'description' => 'User root',
             ],
-            [
-                'id' => 2,
-                'name' => 'Customer',
-                'description' => 'User customer',
-            ],
         ], ['id'], ['name', 'description']);
     }
 }
