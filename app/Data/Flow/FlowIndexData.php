@@ -2,13 +2,13 @@
 
 namespace App\Data\Flow;
 
+use App\Kernel\Data\IndexData;
 use Spatie\LaravelData\Attributes\FromRouteParameter;
-use Spatie\LaravelData\Data;
 
-class FlowIndexData extends Data
+class FlowIndexData extends IndexData
 {
     public function __construct(
         #[FromRouteParameter('model')]
-        public string $model
+        public string $model,
     ) {}
 }

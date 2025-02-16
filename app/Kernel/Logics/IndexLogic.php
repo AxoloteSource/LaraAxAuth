@@ -9,6 +9,8 @@ use Spatie\LaravelData\Data;
 
 abstract class IndexLogic extends Logic
 {
+    protected Builder $queryBuilder;
+
     public function __construct($model = null)
     {
         if (is_null($model)) {
@@ -29,17 +31,18 @@ abstract class IndexLogic extends Logic
         $limit = $this->input->limit ?? 15;
         $page = $this->input->page ?? 1;
 
-        $queryBuilder = $this->makeQuery();
+        $this->queryBuilder = $this->makeQuery();
 
         if (isset($this->input->filters)) {
-            $queryBuilder = $this->runQueryFilters($this->input->filters, $queryBuilder);
+            $this->queryBuilder = $this->runQueryFilters($this->input->filters);
         }
 
         if (isset($this->input->search)) {
-            $queryBuilder = $this->runQueryWithSearch($this->input->search, $queryBuilder);
+            logger('existe el sear ', [$this->input->search]);
+            $this->queryBuilder = $this->runQueryWithSearch($this->input->search);
         }
 
-        $this->response = $queryBuilder->paginate($limit, ['*'], 'page', $page);
+        $this->response = $this->queryBuilder->paginate($limit, ['*'], 'page', $page);
 
         return $this;
     }
@@ -58,20 +61,20 @@ abstract class IndexLogic extends Logic
         return $this->model->newQuery();
     }
 
-    public function runQueryFilters(array $filters, $queryBuilder): Builder
+    public function runQueryFilters(array $filters): Builder
     {
         foreach ($filters as $filter) {
             $operator = isset($filter['operator']) ? strtolower($filter['operator']) : '=';
             $value = $operator === 'like' ? "%{$filter['value']}%" : $filter['value'];
-            $queryBuilder = $queryBuilder->where($filter['property'], $operator, $value);
+            $this->queryBuilder->where($filter['property'], $operator, $value);
         }
 
-        return $queryBuilder;
+        return $this->queryBuilder;
     }
 
-    public function runQueryWithSearch(string $search, Builder $queryBuilder): Builder
+    public function runQueryWithSearch(string $search): Builder
     {
-        return $queryBuilder->where($this->getColumnSearch(), 'like', "%{$search}%");
+        return $this->queryBuilder->where($this->getColumnSearch(), 'like', "%{$search}%");
     }
 
     protected function getColumnSearch(): string

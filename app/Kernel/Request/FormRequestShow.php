@@ -2,7 +2,6 @@
 
 namespace App\Kernel\Request;
 
-
 use Illuminate\Support\Str;
 
 abstract class FormRequestShow extends FormRequest
@@ -12,6 +11,7 @@ abstract class FormRequestShow extends FormRequest
     public function rules(): array
     {
         $name = Str::snake($this->name());
+
         return [
             'id' => "required|exists:{$name},id",
         ];
