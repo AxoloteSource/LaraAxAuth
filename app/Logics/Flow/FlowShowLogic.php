@@ -2,32 +2,38 @@
 
 namespace App\Logics\Flow;
 
-use App\Data\Flow\FlowIndexData;
-use App\Data\Flow\FlowShowData;
-use App\Kernel\Logics\FlowLogic;
-use App\Kernel\Logics\ShowLogic;
+use App\Kernel\Data\Flow\FlowShowData;
+use App\Kernel\Logics\Flow\FlowShowLogicBase;
 use App\Models\Action;
 use App\Models\Role;
 use Illuminate\Http\JsonResponse;
 use Spatie\LaravelData\Data;
 
-class FlowShowLogic extends ShowLogic
+class FlowShowLogic extends FlowShowLogicBase
 {
-    use FlowLogic;
 
-    protected Data|FlowIndexData $input;
+    protected Data|FlowShowData $input;
 
     public function run(Data|FlowShowData $input): JsonResponse
     {
         return parent::logic($input);
     }
 
-    private array $allowedModels = [
-        'roles' => Role::class,
-        'actions' => Action::class,
-    ];
+    public function allowedModels(): array
+    {
+        return [
+            'roles' => Role::class,
+            'actions' => Action::class,
+        ];
+    }
 
-    private array $resources = [];
+    public function resources(): array
+    {
+        return [];
+    }
 
-    private array $searchColum = [];
+    public function searchColum(): array
+    {
+        return [];
+    }
 }

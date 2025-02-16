@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\Flow\FlowIndexData;
-use App\Data\Flow\FlowShowData;
+use App\Kernel\Data\Flow\FlowIndexData;
+use App\Kernel\Data\Flow\FlowShowData;
 use App\Logics\Flow\FlowIndexLogic;
 use App\Logics\Flow\FlowShowLogic;
 use Illuminate\Http\JsonResponse;
