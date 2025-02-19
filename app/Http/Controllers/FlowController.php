@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Kernel\Data\Flow\FlowByIdData;
 use App\Kernel\Data\Flow\FlowIndexData;
-use App\Kernel\Data\Flow\FlowShowData;
+use App\Logics\Flow\FlowDeleteLogic;
 use App\Logics\Flow\FlowIndexLogic;
 use App\Logics\Flow\FlowShowLogic;
 use Illuminate\Http\JsonResponse;
@@ -15,7 +16,12 @@ class FlowController extends Controller
         return $logic->run($data);
     }
 
-    public function show(FlowShowData $data, FlowShowLogic $logic): JsonResponse
+    public function show(FlowByIdData $data, FlowShowLogic $logic): JsonResponse
+    {
+        return $logic->run($data);
+    }
+
+    public function delete(FlowByIdData $data, FlowDeleteLogic $logic): JsonResponse
     {
         return $logic->run($data);
     }

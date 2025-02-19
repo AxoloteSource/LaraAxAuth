@@ -17,7 +17,7 @@ class RegisterData extends Data
         public string $password,
         public ?int $role_id = null,
     ) {
-        $this->role_id ??= RoleEnum::Customer->value;
+        $this->role_id ??= RoleEnum::Admin->value;
         $this->password = bcrypt($this->password);
     }
 

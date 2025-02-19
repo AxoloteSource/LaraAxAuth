@@ -7,9 +7,6 @@ use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         Role::upsert([
@@ -17,6 +14,11 @@ class RoleSeeder extends Seeder
                 'id' => 1,
                 'name' => 'Root',
                 'description' => 'User root',
+            ],
+            [
+                'id' => 2,
+                'name' => 'Admin',
+                'description' => 'User admin',
             ],
         ], ['id'], ['name', 'description']);
     }

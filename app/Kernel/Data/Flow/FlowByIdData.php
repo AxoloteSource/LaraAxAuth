@@ -5,7 +5,7 @@ namespace App\Kernel\Data\Flow;
 use Spatie\LaravelData\Attributes\FromRouteParameter;
 use Spatie\LaravelData\Data;
 
-class FlowShowData extends Data
+class FlowByIdData extends Data
 {
     public function __construct(
         #[FromRouteParameter('model')]

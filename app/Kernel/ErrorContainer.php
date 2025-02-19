@@ -2,7 +2,7 @@
 
 namespace App\Kernel;
 
-use App\Kernel\Enums\HttpErrors;
+use App\Kernel\Enums\Http;
 
 class ErrorContainer
 {
@@ -11,7 +11,7 @@ class ErrorContainer
     public static function error(
         ?string $message = null,
         ?array $data = null,
-        HttpErrors $status = HttpErrors::BadRequest
+        Http $status = Http::BadRequest
     ): void {
         self::$error = [
             'message' => $message,

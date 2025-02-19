@@ -2,7 +2,7 @@
 
 namespace App\Kernel\Logics;
 
-use App\Kernel\Enums\HttpErrors;
+use App\Kernel\Enums\Http;
 use App\Kernel\KernelLogic;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -59,7 +59,7 @@ abstract class ShowLogic extends Logic
     {
         if (is_null($this->response)) {
             return Response::error(
-                message: 'Not Found', status: HttpErrors::NotFound
+                message: 'Not Found', status: Http::NotFound
             );
         }
 

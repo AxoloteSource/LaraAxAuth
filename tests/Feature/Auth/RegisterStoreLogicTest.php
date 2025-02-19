@@ -2,9 +2,10 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Enums\RoleEnum;
 use Tests\TestCase;
 
-class RegisterStoreLogic extends TestCase
+class RegisterStoreLogicTest extends TestCase
 {
     public function test_can_register(): void
     {
@@ -40,11 +41,9 @@ class RegisterStoreLogic extends TestCase
             ],
         ]);
 
-        // Extrae datos de la respuesta
         $responseData = $response->json('data');
         $userData = $responseData['user'];
 
-        // Verifica contenido específico
         $response->assertJson([
             'status' => 'OK',
             'message' => null,
@@ -56,14 +55,13 @@ class RegisterStoreLogic extends TestCase
             ],
         ]);
 
-        // Verifica que se haya creado el usuario en la base de datos
         $this->assertDatabaseHas('users', [
             'id' => $userData['id'],
             'name' => $name,
             'email' => $email,
+            'role_id' => RoleEnum::Admin,
         ]);
 
-        // Verifica que el access_token exista
         $this->assertArrayHasKey('access_token', $responseData, 'El token de acceso no está presente en la respuesta');
 
     }

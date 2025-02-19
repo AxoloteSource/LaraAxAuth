@@ -66,9 +66,8 @@ class RoleIndexTest extends TestCase
 
         $response->assertJsonCount(10, 'data');
 
-        $rolesCreados = Role::latest()->take(10)->get();
+        $rolesCreados = Role::take(10)->get();
 
-        //dd($response->json());
 
         foreach ($rolesCreados as $rol) {
             $response->assertJsonFragment([

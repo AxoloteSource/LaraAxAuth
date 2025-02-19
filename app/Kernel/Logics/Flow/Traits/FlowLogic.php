@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Kernel\Logics\Flow;
+namespace App\Kernel\Logics\Flow\Traits;
 
-use App\Kernel\Enums\HttpErrors;
+
+use App\Kernel\Enums\Http;
 
 trait FlowLogic
 {
@@ -11,8 +12,6 @@ trait FlowLogic
     abstract public function allowedModels(): array;
 
     abstract public function resources(): array;
-
-    abstract public function searchColum(): array;
 
     protected function before(): bool
     {
@@ -47,7 +46,7 @@ trait FlowLogic
         return $this->error(
             __('Model Not Found'),
             ['model' => $this->modelRoute],
-            HttpErrors::NotFound
+            Http::NotFound
         );
     }
 }
