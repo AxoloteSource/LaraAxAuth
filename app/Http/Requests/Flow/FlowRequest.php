@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Flow;
 
-
 use App\Http\Requests\FormRequest;
 
 class FlowRequest extends FormRequest

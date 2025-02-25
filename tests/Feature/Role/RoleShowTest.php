@@ -29,7 +29,6 @@ class RoleShowTest extends TestCase
             ],
         ]);
 
-
         $response->assertJson([
             'status' => 'OK',
             'message' => null,

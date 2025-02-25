@@ -2,8 +2,8 @@
 
 namespace Tests;
 
+use App\Core\ErrorContainer;
 use App\Enums\RoleEnum;
-use App\Kernel\ErrorContainer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -39,7 +39,7 @@ abstract class TestCase extends BaseTestCase
     {
         $user = User::factory()->create(['role_id' => RoleEnum::Root->value]);
         Sanctum::actingAs($user, ['*']);
+
         return $user;
     }
-
 }

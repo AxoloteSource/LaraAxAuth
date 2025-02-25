@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Kernel\Data\Flow\FlowByIdData;
-use App\Kernel\Data\Flow\FlowIndexData;
+use App\Core\Data\Flow\FlowByIdData;
+use App\Core\Data\Flow\FlowIndexData;
 use App\Logics\Flow\FlowDeleteLogic;
 use App\Logics\Flow\FlowIndexLogic;
 use App\Logics\Flow\FlowShowLogic;

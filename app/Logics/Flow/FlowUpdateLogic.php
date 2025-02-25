@@ -2,8 +2,8 @@
 
 namespace App\Logics\Flow;
 
+use App\Core\Logics\Flow\FlowUpdateLogicBase;
 use App\Data\Role\UpdateRoleData;
-use App\Kernel\Logics\Flow\FlowUpdateLogicBase;
 use App\Models\Role;
 
 class FlowUpdateLogic extends FlowUpdateLogicBase

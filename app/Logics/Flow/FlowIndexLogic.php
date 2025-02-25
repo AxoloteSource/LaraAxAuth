@@ -2,8 +2,8 @@
 
 namespace App\Logics\Flow;
 
-use App\Kernel\Data\Flow\FlowIndexData;
-use App\Kernel\Logics\Flow\FlowIndexLogicBase;
+use App\Core\Data\Flow\FlowIndexData;
+use App\Core\Logics\Flow\FlowIndexLogicBase;
 use App\Models\Action;
 use App\Models\Role;
 use Illuminate\Http\JsonResponse;

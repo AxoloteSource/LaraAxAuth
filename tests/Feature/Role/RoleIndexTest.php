@@ -68,7 +68,6 @@ class RoleIndexTest extends TestCase
 
         $rolesCreados = Role::take(10)->get();
 
-
         foreach ($rolesCreados as $rol) {
             $response->assertJsonFragment([
                 'id' => $rol->id,
@@ -77,5 +76,4 @@ class RoleIndexTest extends TestCase
             ]);
         }
     }
-
 }

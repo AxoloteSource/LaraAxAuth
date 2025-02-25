@@ -20,5 +20,4 @@ class RegisterData extends Data
         $this->role_id ??= RoleEnum::Admin->value;
         $this->password = bcrypt($this->password);
     }
-
 }

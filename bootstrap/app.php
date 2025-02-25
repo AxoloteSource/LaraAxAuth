@@ -1,6 +1,6 @@
 <?php
 
-use App\Kernel\Middleware\IsAllow;
+use App\Core\Middleware\IsAllow;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

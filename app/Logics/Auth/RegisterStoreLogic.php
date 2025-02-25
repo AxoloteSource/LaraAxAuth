@@ -2,9 +2,9 @@
 
 namespace App\Logics\Auth;
 
+use App\Core\Logics\StoreLogic;
 use App\Data\Auth\RegisterData;
 use App\Http\Resources\Auth\LoginResource;
-use App\Kernel\Logics\StoreLogic;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;

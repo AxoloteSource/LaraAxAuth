@@ -2,9 +2,9 @@
 
 namespace App\Logics\Auth;
 
+use App\Core\Logics\ShowLogic;
 use App\Data\Auth\LoginData;
 use App\Http\Resources\Auth\LoginResource;
-use App\Kernel\Logics\ShowLogic;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

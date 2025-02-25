@@ -2,8 +2,8 @@
 
 namespace App\Logics\Flow;
 
-use App\Kernel\Data\Flow\FlowByIdData;
-use App\Kernel\Logics\Flow\FlowShowLogicBase;
+use App\Core\Data\Flow\FlowByIdData;
+use App\Core\Logics\Flow\FlowShowLogicBase;
 use App\Models\Action;
 use App\Models\Role;
 use Illuminate\Http\JsonResponse;
