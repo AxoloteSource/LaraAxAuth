@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,6 +16,7 @@ class User extends Authenticatable
         'name',
         'email',
         'role_id',
+        'password',
     ];
 
     protected $hidden = [
@@ -37,37 +36,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
-
-    public static function register(
-        string $email,
-        string $name,
-        string $password,
-        int $roleId = RoleEnum::Customer->value
-    ): User {
-        $user = new User;
-        $user->email = $email;
-        $user->name = $name;
-        $user->role_id = $roleId;
-        $user->password = bcrypt($password);
-        $user->save();
-
-        return $user;
-    }
-
-    public static function login(
-        string $email,
-        string $password
-    ): ?User {
-        if (! auth()->attempt(['email' => $email, 'password' => $password])) {
-            return null;
-        }
-        return User::where('email', $email)->first();
-    }
-    
-    public function logout()
-    {
-        $userSesion = auth()->user();
-
-        return $userSesion->currentAccessToken()->delete();
-    } 
 }

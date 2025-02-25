@@ -5,5 +5,5 @@ namespace App\Enums;
 enum RoleEnum: int
 {
     case Root = 1;
-    case Customer = 2;
+    case Admin = 2;
 }

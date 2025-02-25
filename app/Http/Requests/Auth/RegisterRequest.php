@@ -4,12 +4,6 @@ namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\FormRequest;
 
-/**
- * @property string email
- * @property string password
- * @property string password_confirmation
- * @property string name
- */
 class RegisterRequest extends FormRequest
 {
     public function rules(): array
@@ -20,5 +14,13 @@ class RegisterRequest extends FormRequest
             'password' => 'required|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()]{8,}$/|confirmed',
             'password_confirmation' => 'required_with:password|same:password',
         ];
+    }
+
+    public function getData(): array
+    {
+        $data = $this->validated();
+        unset($data['password_confirmation']);
+
+        return $data;
     }
 }
