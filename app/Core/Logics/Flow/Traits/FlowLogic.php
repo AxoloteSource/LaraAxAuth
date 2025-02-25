@@ -12,19 +12,6 @@ trait FlowLogic
 
     abstract public function resources(): array;
 
-    protected function before(): bool
-    {
-        $this->modelRoute = $this->input->model;
-
-        if (! $this->validIsAllowModel()) {
-            return false;
-        }
-        $allowedModels = $this->allowedModels();
-        $this->model = new $allowedModels[$this->modelRoute];
-
-        return true;
-    }
-
     protected function withResource(): mixed
     {
         if (array_key_exists($this->modelRoute, $this->resources())) {

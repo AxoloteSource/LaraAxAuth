@@ -16,7 +16,11 @@ class ResponseMacros
     {
         Response::macro(
             'success',
-            function (array|bool|Model|Collection|JsonResource|JsonResponse $data, ?string $message = null, Http $status = Http::Success): JsonResponse {
+            function (
+                array|bool|Model|Collection|JsonResource|JsonResponse $data,
+                ?string $message = null,
+                Http $status = Http::Success
+            ): JsonResponse {
                 return Response::json([
                     'status' => 'OK',
                     'message' => $message,
@@ -26,7 +30,10 @@ class ResponseMacros
 
         Response::macro(
             'successDataTableNotPaginate',
-            function (array|bool|Model|Collection|JsonResource $data, array $tableHeaders): JsonResponse {
+            function (
+                array|bool|Model|Collection|JsonResource $data,
+                array $tableHeaders
+            ): JsonResponse {
                 $columns = collect($tableHeaders)->map(function (mixed $value, string $key) {
                     return [
                         'accessor' => $key,
@@ -42,7 +49,10 @@ class ResponseMacros
 
         Response::macro(
             'successPagination',
-            function (?LengthAwarePaginator $data, $message = null): JsonResponse {
+            function (
+                ?LengthAwarePaginator $data,
+                $message = null
+            ): JsonResponse {
                 return Response::json([
                     'status' => 'OK',
                     'message' => $message,
@@ -52,7 +62,10 @@ class ResponseMacros
 
         Response::macro(
             'successDataTable',
-            function (?LengthAwarePaginator $data, array $tableHeaders): JsonResponse {
+            function (
+                ?LengthAwarePaginator $data,
+                array $tableHeaders
+            ): JsonResponse {
                 $data = collect($data->toArray())->merge([
                     'columns' => collect($tableHeaders)->map(function (mixed $value, string $key) {
                         return [
@@ -67,7 +80,11 @@ class ResponseMacros
 
         Response::macro(
             'error',
-            function (?string $message = null, ?array $data = null, Http $status = Http::BadRequest): JsonResponse {
+            function (
+                ?string $message = null,
+                ?array $data = null,
+                Http $status = Http::BadRequest
+            ): JsonResponse {
                 return Response::json([
                     'status' => 'error',
                     'message' => $message,

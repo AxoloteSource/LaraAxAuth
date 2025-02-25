@@ -5,6 +5,7 @@ namespace App\Core\Logics\Flow;
 use App\Core\Data\Flow\FlowIndexData;
 use App\Core\Logics\Flow\Traits\FlowLogic;
 use App\Core\Logics\Flow\Traits\WhitSearch;
+use App\Core\Logics\Flow\Traits\WithoutValidate;
 use App\Core\Logics\IndexLogic;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -12,7 +13,7 @@ use Spatie\LaravelData\Data;
 
 abstract class FlowIndexLogicBase extends IndexLogic
 {
-    use FlowLogic, WhitSearch;
+    use FlowLogic, WhitSearch, WithoutValidate;
 
     protected Data|FlowIndexData $input;
 

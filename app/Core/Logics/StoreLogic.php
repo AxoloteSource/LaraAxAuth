@@ -2,8 +2,10 @@
 
 namespace App\Core\Logics;
 
+use App\Core\Enums\Http;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Response;
 use Spatie\LaravelData\Data;
 
 abstract class StoreLogic extends Logic
@@ -34,5 +36,13 @@ abstract class StoreLogic extends Logic
     protected function after(): bool
     {
         return true;
+    }
+
+    protected function response(): JsonResponse
+    {
+        return Response::success(
+            data: $this->withResource(),
+            status: Http::Created
+        );
     }
 }

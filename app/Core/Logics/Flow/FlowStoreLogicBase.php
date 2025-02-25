@@ -4,10 +4,9 @@ namespace App\Core\Logics\Flow;
 
 use App\Core\Logics\Flow\Traits\FlowLogic;
 use App\Core\Logics\Flow\Traits\WithValidates;
-use App\Core\Logics\UpdateLogic;
-use Arr;
+use App\Core\Logics\StoreLogic;
 
-abstract class FlowUpdateLogicBase extends UpdateLogic
+abstract class FlowStoreLogicBase extends StoreLogic
 {
     use FlowLogic, WithValidates;
 }
