@@ -37,7 +37,7 @@ trait FlowLogic
         return $this->response;
     }
 
-    public function validIsAllowModel(): bool
+    private function validIsAllowModel(): bool
     {
         if (array_key_exists($this->modelRoute, $this->allowedModels())) {
             return true;

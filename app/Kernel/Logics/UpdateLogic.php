@@ -2,39 +2,46 @@
 
 namespace App\Kernel\Logics;
 
+use App\Kernel\KernelLogic;
 use Illuminate\Database\Eloquent\Model;
-use Throwable;
+use Illuminate\Http\JsonResponse;
+use Spatie\LaravelData\Data;
 
-class UpdateLogic extends StoreLogic
+abstract class UpdateLogic extends Logic
 {
-//    protected string $identityColumnName = 'updated_by_id';
-//
-//    public function save($input): Model
-//    {
-//        if ($this->autoInjectIdentity) {
-//            $this->getSessionIdentity($input);
-//        }
-//
-//        $this->model = $this->model->find($input['id']);
-//        $this->model->fill($input);
-//        $this->model->save();
-//
-//        return $this->model;
-//    }
-//
-//    protected function returnData(bool $success, $result = [], ?Throwable $exception = null)
-//    {
-//        if ($success) {
-//            return $this->model->where('id', $result->id)
-//                ->select($this->selectionColumns())
-//                ->first();
-//        }
-//
-//        return $this->errorCode($this->errorCodeBase.'.'.$exception?->getMessage() ?? '', []);
-//    }
-//
-//    protected function selectionColumns(): array|string
-//    {
-//        return '*';
-//    }
+    use KernelLogic;
+
+    public function __construct(?Model $model = null)
+    {
+        if (is_null($model)) {
+            return;
+        }
+        $this->model = $model;
+    }
+
+    abstract public function run(Data $input): JsonResponse;
+
+    protected function before(): bool
+    {
+        $this->model = $this->model->find($this->input->id);
+        return true;
+    }
+
+    protected function action(): Logic
+    {
+        if (! $this->model->exists) {
+            $this->model = $this->model->find($this->input->id);
+        }
+
+        $this->model->fill($this->input->toArray());
+        $this->model->save();
+        $this->response = $this->model;
+
+        return $this;
+    }
+
+    protected function after(): bool
+    {
+        return true;
+    }
 }

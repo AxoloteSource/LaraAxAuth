@@ -8,8 +8,11 @@ use Spatie\LaravelData\Data;
 
 abstract class StoreLogic extends Logic
 {
-    public function __construct(Model $model)
+    public function __construct(?Model $model = null)
     {
+        if (is_null($model)) {
+            return;
+        }
         $this->model = $model;
     }
 

@@ -3,17 +3,15 @@
 namespace App\Kernel\Logics;
 
 use App\Kernel\Enums\Http;
-use App\Kernel\KernelLogic;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 use Spatie\LaravelData\Data;
 
 abstract class ShowLogic extends Logic
 {
-    use KernelLogic;
-
-    public function __construct($model = null)
+    public function __construct(?Model $model = null)
     {
         if (is_null($model)) {
             return;

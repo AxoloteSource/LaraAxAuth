@@ -4,12 +4,21 @@ namespace App\Kernel\Logics;
 
 use App\Kernel\Enums\Http;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 use Spatie\LaravelData\Data;
 
 abstract class DeleteLogic extends Logic
 {
+    public function __construct(?Model $model = null)
+    {
+        if (is_null($model)) {
+            return;
+        }
+        $this->model = $model;
+    }
+
     abstract public function run(Data $input): JsonResponse;
 
     protected function before(): bool
