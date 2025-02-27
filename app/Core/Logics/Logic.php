@@ -3,7 +3,7 @@
 namespace App\Core\Logics;
 
 use App\Core\ErrorContainer;
-use App\Core\KernelLogic;
+use App\Core\CoreLogic;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
@@ -11,11 +11,11 @@ use Spatie\LaravelData\Data;
 
 abstract class Logic
 {
-    use KernelLogic;
+    use CoreLogic;
 
     protected Data $input;
 
-    protected mixed $response;
+    protected mixed $response = null;
 
     public Model $model;
 

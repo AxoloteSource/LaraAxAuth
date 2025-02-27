@@ -4,7 +4,7 @@ namespace App\Core;
 
 use App\Core\Enums\Http;
 
-trait KernelLogic
+trait CoreLogic
 {
     protected function error(
         ?string $message = null,
