@@ -9,9 +9,9 @@ class LoginShowLogicTest extends TestCase
 {
     public function test_can_login_with_valid_credentials()
     {
-        $password = '$Secret123';
+        $password = $this->faker->password;
         $user = User::factory()->create([
-            'email' => 'lgozuna@gmail.com',
+            'email' => $this->faker->email,
             'password' => bcrypt($password),
         ]);
 

@@ -2,14 +2,14 @@
 
 namespace App\Core\Logics;
 
-use App\Core\KernelLogic;
+use App\Core\CoreLogic;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Spatie\LaravelData\Data;
 
 abstract class UpdateLogic extends Logic
 {
-    use KernelLogic;
+    use CoreLogic;
 
     public function __construct(?Model $model = null)
     {

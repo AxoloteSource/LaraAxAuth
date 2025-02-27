@@ -2,12 +2,12 @@
 
 namespace App\Core\Request;
 
-use App\Core\KernelLogic;
+use App\Core\CoreLogic;
 use Illuminate\Foundation\Http\FormRequest as Request;
 
 class FormRequest extends Request
 {
-    use KernelLogic;
+    use CoreLogic;
 
     protected array $rules = [];
 

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Mail;
-use Laravel\Sanctum\Sanctum;
+use Laravel\Passport\Passport;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -33,12 +33,13 @@ abstract class TestCase extends BaseTestCase
     {
         $this->artisan('migrate:fresh');
         $this->artisan('db:seed');
+        $this->artisan('passport:client --personal --name="Laravel Personal Access Client"');
     }
 
     public function loginRoot(): User
     {
         $user = User::factory()->create(['role_id' => RoleEnum::Root->value]);
-        Sanctum::actingAs($user, ['*']);
+        Passport::actingAs($user);
 
         return $user;
     }
