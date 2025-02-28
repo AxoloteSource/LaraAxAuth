@@ -2,8 +2,9 @@
 
 namespace App\Core\Logics;
 
-use App\Core\ErrorContainer;
 use App\Core\CoreLogic;
+use App\Core\ErrorContainer;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
@@ -82,5 +83,12 @@ abstract class Logic
     protected function response(): JsonResponse
     {
         return Response::success($this->withResource());
+    }
+
+    protected function user(): ?User
+    {
+        /** @var User|null $user */
+        $user = auth()->user();
+        return $user;
     }
 }

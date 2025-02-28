@@ -38,7 +38,17 @@ abstract class TestCase extends BaseTestCase
 
     public function loginRoot(): User
     {
-        $user = User::factory()->create(['role_id' => RoleEnum::Root->value]);
+        return $this->createUser(RoleEnum::Root);
+    }
+
+    public function loginAdmin(): User
+    {
+        return $this->createUser(RoleEnum::Admin);
+    }
+
+    public function createUser(RoleEnum $role): User
+    {
+        $user = User::factory()->create(['role_id' => $role->value]);
         Passport::actingAs($user);
 
         return $user;
