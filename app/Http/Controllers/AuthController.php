@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\Auth\IsAllowedData;
 use App\Data\Auth\LoginData;
 use App\Data\Auth\RegisterData;
+use App\Logics\Auth\IsAllowedLogic;
 use App\Logics\Auth\LoginShowLogic;
 use App\Logics\Auth\LogoutLogic;
 use App\Logics\Auth\RegisterStoreLogic;
@@ -24,5 +26,10 @@ class AuthController extends Controller
     public function logout(LogoutLogic $logic): JsonResponse
     {
         return $logic->run();
+    }
+
+    public function isAllowed(IsAllowedData $data, IsAllowedLogic $logic)
+    {
+        return $logic->run($data);
     }
 }
