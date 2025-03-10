@@ -1,23 +1,26 @@
 <?php
 
-namespace Tests\Feature\Role;
+namespace Tests\Feature\Action;
 
+use App\Models\Action;
 use Tests\TestCase;
 
-class RoleStoreTest extends TestCase
+class ActionUpdateTest extends TestCase
 {
-    public function test_create_role_retorna_codigo_201()
+    public function test_update_action_retorna_codigo_200()
     {
         $this->loginRoot();
+
+        $action = Action::factory()->create();
 
         $payload = [
             'name' => $this->faker->name,
             'description' => $this->faker->text,
         ];
 
-        $response = $this->postJson('/api/v1/roles', $payload);
+        $response = $this->putJson("/api/v1/actions/{$action->id}", $payload);
 
-        $response->assertStatus(201);
+        $response->assertStatus(200);
 
         $response->assertJsonStructure([
             'status',
@@ -35,28 +38,30 @@ class RoleStoreTest extends TestCase
             'status' => 'OK',
             'message' => null,
             'data' => [
+                'id' => $action->id,
                 'name' => $payload['name'],
                 'description' => $payload['description'],
             ],
         ]);
 
-        $this->assertDatabaseHas('roles', [
-            'id' => $response->json('data.id'),
-            'description' => $payload['description'],
+        $this->assertDatabaseHas('actions', [
+            'id' => $action->id,
             'name' => $payload['name'],
+            'description' => $payload['description'],
         ]);
     }
 
     public function test_without_action()
     {
-        $this->loginAdmin()->attachAction(['auth.flow.store']);
+        $this->loginAdmin()->attachAction(['auth.flow.update']);
+        $action = Action::factory()->create();
 
         $payload = [
             'name' => $this->faker->name,
             'description' => $this->faker->text,
         ];
 
-        $response = $this->postJson('/api/v1/roles', $payload);
+        $response = $this->putJson("/api/v1/actions/{$action->id}", $payload);
 
         $response->assertStatus(403);
 
@@ -64,7 +69,7 @@ class RoleStoreTest extends TestCase
             'status' => 'error',
             'message' => 'You do not have permission to access this resource',
             'data' => [
-                'action' => 'auth.role.store',
+                'action' => 'auth.action.update',
             ],
         ]);
     }

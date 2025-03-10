@@ -1,21 +1,21 @@
 <?php
 
-namespace Tests\Feature\Role;
+namespace Tests\Feature\Action;
 
 use Tests\TestCase;
 
-class RoleStoreTest extends TestCase
+class ActionStoreTest extends TestCase
 {
-    public function test_create_role_retorna_codigo_201()
+    public function test_create_action()
     {
         $this->loginRoot();
 
         $payload = [
-            'name' => $this->faker->name,
-            'description' => $this->faker->text,
+            'name' => $this->faker->word,
+            'description' => $this->faker->sentence,
         ];
 
-        $response = $this->postJson('/api/v1/roles', $payload);
+        $response = $this->postJson('/api/v1/actions', $payload);
 
         $response->assertStatus(201);
 
@@ -40,10 +40,10 @@ class RoleStoreTest extends TestCase
             ],
         ]);
 
-        $this->assertDatabaseHas('roles', [
+        $this->assertDatabaseHas('actions', [
             'id' => $response->json('data.id'),
-            'description' => $payload['description'],
             'name' => $payload['name'],
+            'description' => $payload['description'],
         ]);
     }
 
@@ -52,11 +52,11 @@ class RoleStoreTest extends TestCase
         $this->loginAdmin()->attachAction(['auth.flow.store']);
 
         $payload = [
-            'name' => $this->faker->name,
-            'description' => $this->faker->text,
+            'name' => $this->faker->word,
+            'description' => $this->faker->sentence,
         ];
 
-        $response = $this->postJson('/api/v1/roles', $payload);
+        $response = $this->postJson('/api/v1/actions', $payload);
 
         $response->assertStatus(403);
 
@@ -64,7 +64,7 @@ class RoleStoreTest extends TestCase
             'status' => 'error',
             'message' => 'You do not have permission to access this resource',
             'data' => [
-                'action' => 'auth.role.store',
+                'action' => 'auth.action.store',
             ],
         ]);
     }

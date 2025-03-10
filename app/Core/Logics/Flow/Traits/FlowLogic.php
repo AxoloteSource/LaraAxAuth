@@ -12,6 +12,10 @@ trait FlowLogic
 
     abstract public function resources(): array;
 
+    abstract public function publicModels(): array;
+
+    abstract public function isAllow(): array;
+
     protected function withResource(): mixed
     {
         if (array_key_exists($this->modelRoute, $this->resources())) {
@@ -33,6 +37,24 @@ trait FlowLogic
             __('Model Not Found'),
             ['model' => $this->modelRoute],
             Http::NotFound
+        );
+    }
+
+    private function validateAction()
+    {
+        if (! array_key_exists($this->modelRoute, $this->isAllow())) {
+            return true;
+        }
+
+        $action = $this->isAllow()[$this->modelRoute];
+        if ($this->user()->belongsToAction($action)) {
+            return true;
+        }
+
+        return $this->error(
+            __('You do not have permission to access this resource'),
+            ['action' => $action],
+            Http::Forbidden
         );
     }
 }

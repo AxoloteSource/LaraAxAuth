@@ -29,6 +29,10 @@ trait WithValidates
             return $this->getError();
         }
 
+        if (! $this->validateAction()) {
+            return $this->getError();
+        }
+
         $data = $this->validateAndCreateInputs($input);
 
         return parent::logic($data);

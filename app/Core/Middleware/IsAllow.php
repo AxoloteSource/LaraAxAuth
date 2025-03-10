@@ -16,7 +16,7 @@ class IsAllow
      */
     public function handle(Request $request, Closure $next, string $action): Response
     {
-        if ($request->user()->role_id != RoleIdEnum::Root->value && ! $request->user()->role->actions()->where('name', $action)->exists()) {
+        if (! $request->user()->belongsToAction($action)) {
             abort(403, __('You do not have permission to access this resource'));
         }
 

@@ -3,7 +3,9 @@
 namespace App\Logics\Flow;
 
 use App\Core\Logics\Flow\FlowUpdateLogicBase;
+use App\Data\Actions\UpdateActionData;
 use App\Data\Role\UpdateRoleData;
+use App\Models\Action;
 use App\Models\Role;
 
 class FlowUpdateLogic extends FlowUpdateLogicBase
@@ -12,6 +14,7 @@ class FlowUpdateLogic extends FlowUpdateLogicBase
     {
         return [
             'roles' => Role::class,
+            'actions' => Action::class,
         ];
     }
 
@@ -19,11 +22,25 @@ class FlowUpdateLogic extends FlowUpdateLogicBase
     {
         return [
             'roles' => UpdateRoleData::class,
+            'actions' => UpdateActionData::class,
         ];
     }
 
     public function resources(): array
     {
         return [];
+    }
+
+    public function publicModels(): array
+    {
+        return [];
+    }
+
+    public function isAllow(): array
+    {
+        return [
+            'roles' => 'auth.role.update',
+            'actions' => 'auth.action.update',
+        ];
     }
 }

@@ -35,4 +35,17 @@ class FlowShowLogic extends FlowShowLogicBase
     {
         return [];
     }
+
+    public function publicModels(): array
+    {
+        return [];
+    }
+
+    public function isAllow(): array
+    {
+        return [
+            'roles' => 'auth.role.show',
+            'actions' => 'auth.action.show',
+        ];
+    }
 }

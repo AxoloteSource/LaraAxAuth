@@ -11,6 +11,11 @@ trait WithoutValidate
         if (! $this->validIsAllowModel()) {
             return false;
         }
+
+        if (! $this->validateAction()) {
+            return false;
+        }
+
         $allowedModels = $this->allowedModels();
         $this->model = new $allowedModels[$this->modelRoute];
 
