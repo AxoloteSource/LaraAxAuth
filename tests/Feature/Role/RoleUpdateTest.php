@@ -77,4 +77,28 @@ class RoleUpdateTest extends TestCase
             ],
         ]);
     }
+
+    public function test_without_action()
+    {
+        $this->loginAdmin()->attachAction(['auth.flow.update']);
+        $role = Role::factory()->create();
+
+
+        $payload = [
+            'name' => $this->faker->name,
+            'description' => $this->faker->text,
+        ];
+
+        $response = $this->putJson("/api/v1/roles/{$role->id}", $payload);
+
+        $response->assertStatus(403);
+
+        $response->assertJson([
+            'status' => 'error',
+            'message' => 'You do not have permission to access this resource',
+            'data' => [
+                'action' => 'auth.role.update',
+            ],
+        ]);
+    }
 }

@@ -35,4 +35,17 @@ class FlowIndexLogic extends FlowIndexLogicBase
     {
         return [];
     }
+
+    public function publicModels(): array
+    {
+        return [];
+    }
+
+    public function isAllow(): array
+    {
+        return [
+            'roles' => 'auth.role.index',
+            'actions' => 'auth.action.index',
+        ];
+    }
 }

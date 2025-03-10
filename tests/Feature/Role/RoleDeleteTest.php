@@ -17,6 +17,6 @@ class RoleDeleteTest extends TestCase
 
         $response->assertStatus(204);
 
-        $this->assertDatabaseMissing('roles', ['id' => $role->id]);
+        $this->assertDatabaseHas('roles', ['id' => $role->id, 'deleted_at' => now()]);
     }
 }

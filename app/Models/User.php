@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use App\Core\Enums\RoleIdEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -35,5 +37,29 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function belongsToAction(string $action): bool
+    {
+        if ($this->role_id != RoleIdEnum::Root->value
+            && ! $this->role->actions()->where('name', $action)->exists()
+        ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function attachAction(string|array $action): void
+    {
+        $actions = is_array($action) ? $action : [$action];
+
+        foreach ($actions as $action) {
+            $actionInstance = Action::firstOrCreate(['name' => $action], ['description' => '']);
+
+            if (! $this->role->actions()->where('name', $action)->exists()) {
+                $this->role->actions()->attach($actionInstance->id);
+            }
+        }
     }
 }

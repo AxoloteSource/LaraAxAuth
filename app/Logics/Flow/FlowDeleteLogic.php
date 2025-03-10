@@ -30,4 +30,17 @@ class FlowDeleteLogic extends FlowDeleteLogicBase
     {
         return [];
     }
+
+    public function publicModels(): array
+    {
+        return [];
+    }
+
+    public function isAllow(): array
+    {
+        return [
+            'roles' => 'auth.role.delete',
+            'actions' => 'auth.action.delete',
+        ];
+    }
 }
