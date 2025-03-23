@@ -5,7 +5,7 @@ namespace Tests\Feature\Auth;
 use App\Models\User;
 use Tests\TestCase;
 
-class LoginShowLogicTest extends TestCase
+class LoginTest extends TestCase
 {
     public function test_can_login_with_valid_credentials()
     {

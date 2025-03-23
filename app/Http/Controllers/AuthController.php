@@ -8,6 +8,7 @@ use App\Data\Auth\RegisterData;
 use App\Logics\Auth\IsAllowedLogic;
 use App\Logics\Auth\LoginShowLogic;
 use App\Logics\Auth\LogoutLogic;
+use App\Logics\Auth\MeLogic;
 use App\Logics\Auth\RegisterStoreLogic;
 use Illuminate\Http\JsonResponse;
 
@@ -28,8 +29,13 @@ class AuthController extends Controller
         return $logic->run();
     }
 
-    public function isAllowed(IsAllowedData $data, IsAllowedLogic $logic)
+    public function isAllowed(IsAllowedData $data, IsAllowedLogic $logic): JsonResponse
     {
         return $logic->run($data);
+    }
+
+    public function me(MeLogic $logic): JsonResponse
+    {
+        return $logic->run();
     }
 }

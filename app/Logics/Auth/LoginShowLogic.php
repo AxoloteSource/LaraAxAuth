@@ -14,11 +14,10 @@ use Spatie\LaravelData\Data;
 
 class LoginShowLogic extends ShowLogic
 {
-    public Model|User $model;
 
     protected Data|LoginData $input;
 
-    public function __construct(User $user)
+    public function __construct(protected User $user)
     {
         parent::__construct($user);
     }
@@ -49,7 +48,7 @@ class LoginShowLogic extends ShowLogic
 
     public function validCredentials(): bool
     {
-        if (auth()->attempt(['email' => $this->input, 'password' => $this->input->password])) {
+        if (auth()->attempt(['email' => $this->input->email, 'password' => $this->input->password])) {
             return true;
         }
 
