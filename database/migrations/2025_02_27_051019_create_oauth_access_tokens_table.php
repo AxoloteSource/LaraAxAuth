@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('oauth_access_tokens', function (Blueprint $table) {
             $table->string('id', 100)->primary();
-            $table->unsignedBigInteger('user_id')->nullable()->index();
+            $table->string('user_id', 36)->nullable()->index();
             $table->uuid('client_id');
             $table->string('name')->nullable();
             $table->text('scopes')->nullable();

@@ -3,8 +3,6 @@
 namespace Tests\Feature\Action;
 
 use App\Models\Action;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ActionDeleteTest extends TestCase
