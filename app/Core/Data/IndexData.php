@@ -10,7 +10,7 @@ class IndexData extends Data
 
     public ?int $limit = 15;
 
-    public ?string $orderBy = 'asc';
+    public ?string $order = 'asc';
 
     public ?array $filters = [];
 

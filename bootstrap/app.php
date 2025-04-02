@@ -1,6 +1,7 @@
 <?php
 
 use App\Core\Middleware\IsAllow;
+use App\Core\Middleware\SetHeaders;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,13 +14,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
         then: function (Application $app) {
             Route::prefix('/api/v1')
-                ->middleware('api')
+                ->middleware(['setHeaders', 'api'])
                 ->group(base_path('routes/api.php'));
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'isAllow' => IsAllow::class,
+            'setHeaders' => SetHeaders::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
