@@ -13,6 +13,6 @@ class UpdateActionData extends Data
         #[Rule(['required'])]
         public string $description,
         #[Rule(['required', 'exists:actions,id'])]
-        public int $id
+        public string $id
     ) {}
 }

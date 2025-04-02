@@ -89,6 +89,7 @@ abstract class Logic
     {
         /** @var User|null $user */
         $user = auth()->user();
+
         return $user;
     }
 }

@@ -67,5 +67,4 @@ trait WithValidates
 
         return false;
     }
-
 }

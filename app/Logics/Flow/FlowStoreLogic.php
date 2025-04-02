@@ -10,7 +10,6 @@ use App\Models\Role;
 
 class FlowStoreLogic extends FlowStoreLogicBase
 {
-
     public function allowedModels(): array
     {
         return [

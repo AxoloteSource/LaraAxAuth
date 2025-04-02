@@ -11,8 +11,9 @@ class RoleStoreTest extends TestCase
         $this->loginRoot();
 
         $payload = [
-            'name' => $this->faker->name,
+            'name' => $this->faker->unique()->name,
             'description' => $this->faker->text,
+            'key' => $this->faker->unique()->word,
         ];
 
         $response = $this->postJson('/api/v1/roles', $payload);

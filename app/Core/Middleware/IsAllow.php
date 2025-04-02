@@ -2,7 +2,6 @@
 
 namespace App\Core\Middleware;
 
-use App\Core\Enums\RoleIdEnum;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

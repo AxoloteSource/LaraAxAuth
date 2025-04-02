@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Core\Enums\RoleIdEnum;
+use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -42,7 +42,7 @@ class User extends Authenticatable
 
     public function belongsToAction(string $action): bool
     {
-        if ($this->role_id != RoleIdEnum::Root->value
+        if ($this->role_id != RoleEnum::Root->value
             && ! $this->role->actions()->where('name', $action)->exists()
         ) {
             return false;

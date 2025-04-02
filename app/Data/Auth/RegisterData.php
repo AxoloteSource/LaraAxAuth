@@ -15,7 +15,7 @@ class RegisterData extends Data
         public string $email,
         #[Rule(['required', 'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()]{8,}$/', 'confirmed'])]
         public string $password,
-        public ?int $role_id = null,
+        public ?string $role_id = null,
     ) {
         $this->role_id ??= RoleEnum::Admin->value;
         $this->password = bcrypt($this->password);

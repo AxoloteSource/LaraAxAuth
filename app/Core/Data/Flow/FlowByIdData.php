@@ -11,6 +11,6 @@ class FlowByIdData extends Data
         #[FromRouteParameter('model')]
         public string $model,
         #[FromRouteParameter('id')]
-        public string|int $id
+        public mixed $id
     ) {}
 }
