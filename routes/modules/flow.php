@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\FlowController;
+use App\Http\Controllers\V1\Flow\FlowController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(FlowController::class)->group(function () {

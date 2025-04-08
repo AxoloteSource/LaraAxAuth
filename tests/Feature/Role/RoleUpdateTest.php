@@ -83,7 +83,6 @@ class RoleUpdateTest extends TestCase
         $this->loginAdmin()->attachAction(['auth.flow.update']);
         $role = Role::factory()->create();
 
-
         $payload = [
             'name' => $this->faker->name,
             'description' => $this->faker->text,

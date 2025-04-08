@@ -14,7 +14,6 @@ use Spatie\LaravelData\Data;
 
 class LoginShowLogic extends ShowLogic
 {
-
     protected Data|LoginData $input;
 
     public function __construct(protected User $user)

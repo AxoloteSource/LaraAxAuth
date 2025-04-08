@@ -13,6 +13,6 @@ class UpdateRoleData extends Data
         #[Rule(['required'])]
         public string $description,
         #[Rule(['required', 'exists:roles,id'])]
-        public int $id
+        public string $id
     ) {}
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 
@@ -11,13 +12,15 @@ class RoleSeeder extends Seeder
     {
         Role::upsert([
             [
-                'id' => 1,
+                'id' => RoleEnum::Root->value,
                 'name' => 'Root',
+                'key' => 'root',
                 'description' => 'User root',
             ],
             [
-                'id' => 2,
+                'id' => RoleEnum::Admin->value,
                 'name' => 'Admin',
+                'key' => 'admin',
                 'description' => 'User admin',
             ],
         ], ['id'], ['name', 'description']);

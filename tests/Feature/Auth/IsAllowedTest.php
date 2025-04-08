@@ -42,4 +42,30 @@ class IsAllowedTest extends TestCase
             ],
         ]);
     }
+
+    public function test_is_allowed_root_without_action()
+    {
+        $this->loginRoot();
+        Action::factory()->create(['name' => 'user.allowed2']);
+
+        $payload = [
+            'actions' => [
+                'user.allowed2',
+                'user.not_exist2',
+            ],
+        ];
+
+        $response = $this->postJson('/api/v1/is-allowed', $payload);
+
+        $response->assertStatus(200);
+
+        $response->assertJson([
+            'status' => 'OK',
+            'message' => null,
+            'data' => [
+                'user.allowed2' => true,
+                'user.not_exist2' => true,
+            ],
+        ]);
+    }
 }

@@ -13,6 +13,7 @@ class RoleFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word(),
+            'key' => $this->faker->unique()->word(),
             'description' => $this->faker->sentence(),
             'created_at' => now(),
             'updated_at' => now(),

@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
     {
         User::upsert([
             [
-                'id' => '9e84605e-07cd-4e8a-9c43-7170e315a5b0',
+                'id' => '0195f520-9337-7101-984b-fcc9e27a6b63',
                 'role_id' => RoleEnum::Root->value,
                 'name' => env('ROOT_USER_NAME'),
                 'email' => env('ROOT_USER_EMAIL'),
