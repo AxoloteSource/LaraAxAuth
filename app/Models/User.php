@@ -40,6 +40,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function isRoot(): bool
+    {
+        return $this->role->id == RoleEnum::Root;
+    }
+
     public function belongsToAction(string $action): bool
     {
         if ($this->role_id != RoleEnum::Root->value

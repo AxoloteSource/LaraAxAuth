@@ -5,7 +5,6 @@ namespace App\Logics\Auth;
 use App\Core\Logics\Logic;
 use App\Core\Traits\OnlyWithAction;
 use App\Data\Auth\IsAllowedData;
-use App\Models\Action;
 use Illuminate\Http\JsonResponse;
 use Spatie\LaravelData\Data;
 
@@ -29,10 +28,12 @@ class IsAllowedLogic extends Logic
 
     private function checkRoles(): array
     {
-        $actionsWithRoles = Action::withRolesCheck($this->input->actions, $this->user()->role->id)
-            ->mapWithKeys(fn ($action) => [$action->name => $action->roles->isNotEmpty()])
-            ->toArray();
+        $result = collect();
 
-        return array_replace(array_fill_keys($this->input->actions, false), $actionsWithRoles);
+        foreach ($this->input->actions as $action) {
+            $result = $result->merge([$action => $this->user()->belongsToAction($action)]);
+        }
+
+        return $result->toArray();
     }
 }
