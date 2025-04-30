@@ -19,13 +19,12 @@ class MeLogic extends Logic
 
     protected function action(): Logic
     {
-        $this->response = auth()->user();
-
+        $this->model = $this->user();
         return $this;
     }
 
     protected function withResource(): MeResource
     {
-        return new MeResource($this->response);
+        return new MeResource($this->model);
     }
 }

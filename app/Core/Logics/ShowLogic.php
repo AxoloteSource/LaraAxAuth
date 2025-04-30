@@ -29,7 +29,8 @@ abstract class ShowLogic extends Logic
 
     protected function action(): self
     {
-        $this->response = collect($this->makeQuery()->with($this->with())->first());
+        $this->model = $this->makeQuery()->first();
+        $this->response = collect($this->model);
 
         return $this;
     }

@@ -27,6 +27,6 @@ class RegisterStoreLogic extends StoreLogic
 
     protected function withResource(): array|JsonResource
     {
-        return new LoginResource($this->response);
+        return new LoginResource($this->model);
     }
 }

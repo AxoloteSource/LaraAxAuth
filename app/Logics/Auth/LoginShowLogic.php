@@ -16,6 +16,8 @@ class LoginShowLogic extends ShowLogic
 {
     protected Data|LoginData $input;
 
+    public Model|User $model;
+
     public function __construct(protected User $user)
     {
         parent::__construct($user);
@@ -42,7 +44,7 @@ class LoginShowLogic extends ShowLogic
 
     protected function withResource(): array|Model|JsonResource
     {
-        return new LoginResource($this->response);
+        return new LoginResource($this->model);
     }
 
     public function validCredentials(): bool

@@ -60,7 +60,7 @@ class RoleUpdateTest extends TestCase
 
         $response = $this->putJson('/api/v1/roles/100', $payload);
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
 
         $response->assertJsonStructure([
             'status',

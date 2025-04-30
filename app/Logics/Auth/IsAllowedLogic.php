@@ -6,6 +6,7 @@ use App\Core\Logics\Logic;
 use App\Core\Traits\OnlyWithAction;
 use App\Data\Auth\IsAllowedData;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 
 class IsAllowedLogic extends Logic
@@ -26,7 +27,7 @@ class IsAllowedLogic extends Logic
         return $this;
     }
 
-    private function checkRoles(): array
+    private function checkRoles(): Collection
     {
         $result = collect();
 
@@ -34,6 +35,6 @@ class IsAllowedLogic extends Logic
             $result = $result->merge([$action => $this->user()->belongsToAction($action)]);
         }
 
-        return $result->toArray();
+        return $result;
     }
 }
