@@ -2,7 +2,7 @@
 
 namespace App\Data\Auth;
 
-use App\Enums\RoleEnum;
+use App\Models\Role;
 use Spatie\LaravelData\Attributes\Validation\Rule;
 use Spatie\LaravelData\Data;
 
@@ -15,9 +15,11 @@ class RegisterData extends Data
         public string $email,
         #[Rule(['required', 'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()]{8,}$/', 'confirmed'])]
         public string $password,
-        public ?string $role_id = null,
+        #[Rule(['required', 'exists:roles,key'])]
+        public string $role_key,
+        public ?string $role_id,
     ) {
-        $this->role_id ??= RoleEnum::Admin->value;
+        $this->role_id = Role::where('key', $this->role_key)->first()->id;
         $this->password = bcrypt($this->password);
     }
 }

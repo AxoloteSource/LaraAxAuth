@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 use Spatie\LaravelData\Data;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 abstract class ShowLogic extends Logic
 {
@@ -19,7 +20,7 @@ abstract class ShowLogic extends Logic
         $this->model = $model;
     }
 
-    abstract public function run(Data $input): JsonResponse;
+    abstract public function run(Data $input): JsonResponse|StreamedResponse;
 
     protected function before(): bool
     {
@@ -28,7 +29,7 @@ abstract class ShowLogic extends Logic
 
     protected function action(): self
     {
-        $this->response = $this->makeQuery()->with($this->with())->first();
+        $this->response = collect($this->makeQuery()->with($this->with())->first());
 
         return $this;
     }
@@ -53,7 +54,7 @@ abstract class ShowLogic extends Logic
         return [];
     }
 
-    protected function response(): JsonResponse
+    protected function response(): JsonResponse|StreamedResponse
     {
         if (is_null($this->response)) {
             return Response::error(

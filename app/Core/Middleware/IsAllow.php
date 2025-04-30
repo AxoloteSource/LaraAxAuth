@@ -2,16 +2,21 @@
 
 namespace App\Core\Middleware;
 
+use App\Core\Enums\Http;
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Response;
 
 class IsAllow
 {
-    public function handle(Request $request, Closure $next, string $action): Response
+    public function handle(Request $request, Closure $next, string $action)
     {
         if (! $request->user()->belongsToAction($action)) {
-            abort(403, __('You do not have permission to access this resource'));
+            return Response::error(
+                message: 'You do not have permission to access this resource',
+                data: ['action' => $action],
+                status: Http::Forbidden
+            );
         }
 
         return $next($request);

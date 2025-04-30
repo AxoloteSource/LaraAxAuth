@@ -36,7 +36,7 @@ abstract class UpdateLogic extends Logic
 
         $this->model->fill($this->input->toArray());
         $this->model->save();
-        $this->response = $this->model;
+        $this->response = collect($this->model);
 
         return $this;
     }

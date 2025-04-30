@@ -83,7 +83,7 @@ class ResponseMacros
             function (
                 ?string $message = null,
                 ?array $data = null,
-                Http $status = Http::BadRequest
+                Http $status = Http::UnprocessableEntity
             ): JsonResponse {
                 return Response::json([
                     'status' => 'error',

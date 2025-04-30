@@ -7,8 +7,10 @@ use App\Core\ErrorContainer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Response;
 use Spatie\LaravelData\Data;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 abstract class Logic
 {
@@ -16,7 +18,7 @@ abstract class Logic
 
     protected Data $input;
 
-    protected mixed $response = null;
+    protected ?Collection $response = null;
 
     public Model $model;
 
@@ -30,10 +32,10 @@ abstract class Logic
 
     protected function setResponse(array $response): void
     {
-        $this->response = $response;
+        $this->response = collect($response);
     }
 
-    protected function getResponse(): array
+    protected function getResponse(): Collection
     {
         return $this->response;
     }
@@ -71,16 +73,20 @@ abstract class Logic
         return $this->response();
     }
 
-    protected function getError(): JsonResponse
+    protected function getError(): JsonResponse|self
     {
-        if (empty(ErrorContainer::$error)) {
+        if ($this->shouldResponse) {
+            return $this;
+        }
+
+        if (! $this->hasErrors()) {
             return Response::error();
         }
 
         return Response::error(...ErrorContainer::$error);
     }
 
-    protected function response(): JsonResponse
+    protected function response(): JsonResponse|StreamedResponse
     {
         return Response::success($this->withResource());
     }
@@ -91,5 +97,10 @@ abstract class Logic
         $user = auth()->user();
 
         return $user;
+    }
+
+    protected function hasErrors(): bool
+    {
+        return ! empty(ErrorContainer::$error);
     }
 }

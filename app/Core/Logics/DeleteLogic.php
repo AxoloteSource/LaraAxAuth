@@ -28,8 +28,9 @@ abstract class DeleteLogic extends Logic
 
     protected function action(): Logic
     {
-        $this->response = $this->makeQuery()->first();
-        $this->response->delete();
+        $this->model = $this->makeQuery()->first();
+        $this->response = collect($this->model);
+        $this->model->delete();
 
         return $this;
     }

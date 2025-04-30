@@ -28,7 +28,7 @@ abstract class StoreLogic extends Logic
     public function action(): self
     {
         $this->model->fill($this->input->toArray())->save();
-        $this->response = $this->model;
+        $this->response = collect($this->model->toArray());
 
         return $this;
     }

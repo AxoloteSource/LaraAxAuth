@@ -19,6 +19,7 @@ class RegisterStoreLogicTest extends TestCase
             'email' => $email,
             'password' => $password,
             'password_confirmation' => $password,
+            'role_key' => 'admin',
         ];
 
         $response = $this->postJson('api/v1/register', $payload);

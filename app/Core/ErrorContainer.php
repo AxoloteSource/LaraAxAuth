@@ -11,7 +11,7 @@ class ErrorContainer
     public static function error(
         ?string $message = null,
         ?array $data = null,
-        Http $status = Http::BadRequest
+        Http $status = Http::UnprocessableEntity
     ): void {
         self::$error = [
             'message' => $message,

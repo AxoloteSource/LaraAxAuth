@@ -5,12 +5,15 @@ namespace App\Core\Logics;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Response;
 use Spatie\LaravelData\Data;
 
 abstract class IndexLogic extends Logic
 {
     protected Builder $queryBuilder;
+
+    protected private(set) LengthAwarePaginator $pagination;
 
     public function __construct(?Model $model = null)
     {
@@ -31,7 +34,6 @@ abstract class IndexLogic extends Logic
     {
         $limit = $this->input->limit ?? 15;
         $page = $this->input->page ?? 1;
-
         $this->queryBuilder = $this->makeQuery();
 
         if (isset($this->input->filters)) {
@@ -43,7 +45,8 @@ abstract class IndexLogic extends Logic
             $this->queryBuilder = $this->runQueryWithSearch($this->input->search);
         }
 
-        $this->response = $this->queryBuilder->paginate($limit, ['*'], 'page', $page);
+        $this->pagination = $this->queryBuilder->paginate($limit, ['*'], 'page', $page);
+        $this->response = $this->pagination->getCollection();
 
         return $this;
     }
@@ -91,7 +94,12 @@ abstract class IndexLogic extends Logic
     protected function response(): JsonResponse
     {
         return Response::successDataTable(
-            $this->withResource(),
+            new LengthAwarePaginator(
+                $this->withResource(),
+                $this->pagination->total(),
+                $this->pagination->perPage(),
+                $this->pagination->currentPage()
+            ),
             $this->tableHeaders()
         );
     }

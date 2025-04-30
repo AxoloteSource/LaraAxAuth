@@ -9,7 +9,7 @@ trait CoreLogic
     protected function error(
         ?string $message = null,
         ?array $data = null,
-        Http $status = Http::BadRequest
+        Http $status = Http::UnprocessableEntity
     ): false {
         ErrorContainer::error($message, $data, $status);
 
