@@ -2,9 +2,12 @@
 
 use App\Core\Middleware\IsAllow;
 use App\Core\Middleware\SetHeaders;
+use App\Core\Middleware\TransactionMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -14,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
         then: function (Application $app) {
             Route::prefix('/api/v1')
-                ->middleware(['setHeaders', 'api'])
+                ->middleware(['setHeaders', 'api', 'transaction'])
                 ->group(base_path('routes/api.php'));
         }
     )
@@ -22,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'isAllow' => IsAllow::class,
             'setHeaders' => SetHeaders::class,
+            'transaction' => TransactionMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -16,6 +16,10 @@ class TransactionMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (! $request->isMethod('get')) {
+            return $next($request);
+        }
+
         DB::beginTransaction();
         try {
             /** @var JsonResponse $response */
