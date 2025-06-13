@@ -12,11 +12,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->text('value');
-            $table->uuid('setting_value_type_id')
-                ->default('30C19D20-466D-11F0-AD55-51073ABD5648');
-            $table->foreign('setting_value_type_id')
-                ->references('id')->on('setting_value_types')
-                ->restrictOnDelete();
+            $table->foreignUuid('setting_value_type_id')->default('30C19D20-466D-11F0-AD55-51073ABD5648')->constrained();
             $table->boolean('encrypted')->default(false);
             $table->boolean('is_public')->default(false);
             $table->string('group')->default('app');
