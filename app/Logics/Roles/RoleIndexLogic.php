@@ -23,7 +23,6 @@ class RoleIndexLogic extends IndexLogic
   public function tableHeaders(): array
   {
     return [
-      'id' => __('#'),
       'name' => __('Nombre'),
       'description' => __('Descripción'),
       'key' => __('key'),
