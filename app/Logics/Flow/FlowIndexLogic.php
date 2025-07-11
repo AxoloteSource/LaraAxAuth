@@ -21,7 +21,6 @@ class FlowIndexLogic extends FlowIndexLogicBase
     public function allowedModels(): array
     {
         return [
-            'roles' => Role::class,
             'actions' => Action::class,
         ];
     }
