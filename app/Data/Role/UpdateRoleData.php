@@ -3,12 +3,14 @@
 namespace App\Data\Role;
 
 use Spatie\LaravelData\Attributes\Validation\Rule;
+use Spatie\LaravelData\Attributes\Validation\Unique;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\References\RouteParameterReference;
 
 class UpdateRoleData extends Data
 {
     public function __construct(
-        #[Rule(['required', 'unique:roles,name'])]
+        #[Unique('roles', 'name', ignore: new RouteParameterReference('id'))]
         public string $name,
         #[Rule(['required'])]
         public string $description,
