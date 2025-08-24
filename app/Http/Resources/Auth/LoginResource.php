@@ -25,6 +25,7 @@ class LoginResource extends JsonResource
                 'deleted_at' => $this->deleted_at,
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
+                'role' => $this->role,
             ],
             'access_token' => $this->createToken('access_token')->accessToken,
         ];
