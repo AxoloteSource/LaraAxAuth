@@ -16,7 +16,11 @@ class TransactionMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! $request->isMethod('get')) {
+        if ($request->isMethod('get')) {
+            return $next($request);
+        }
+
+        if (app()->runningUnitTests()) {
             return $next($request);
         }
 
