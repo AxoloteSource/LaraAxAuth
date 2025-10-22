@@ -9,8 +9,8 @@ use Illuminate\Http\JsonResponse;
 
 class RoleController extends Controller
 {
-  public function index(IndexData $data, RoleIndexLogic $logic): JsonResponse
-  {
-    return $logic->run($data);
-  }
+    public function index(IndexData $data, RoleIndexLogic $logic): JsonResponse
+    {
+        return $logic->run($data);
+    }
 }

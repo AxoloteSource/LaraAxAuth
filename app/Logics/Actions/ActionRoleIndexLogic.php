@@ -21,10 +21,10 @@ class ActionRoleIndexLogic extends IndexLogic
     public function makeQuery(): Builder
     {
         $query = $this->model->newQuery();
-        $query->whereHas('roles');
-        $query->with('roles', function ($query) {
+        $query->whereHas('roles', function ($query) {
             $query->where('roles.id', $this->input->id);
         });
+
         return $query;
     }
 

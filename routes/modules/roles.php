@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\V1\Actions\ActionRoleController;
 use App\Http\Controllers\V1\Roles\RoleActionController;
 use App\Http\Controllers\V1\Roles\RoleController;
-use App\Http\Controllers\V1\Actions\ActionRoleController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(RoleActionController::class)->group(function () {

@@ -15,12 +15,12 @@ class RoleActionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id" => $this->id,
-            "name" => $this->name,
-            "description" => $this->description,
-            "deleted_at" => $this->deleted_at,
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'deleted_at' => $this->deleted_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
