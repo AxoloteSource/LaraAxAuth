@@ -5,7 +5,6 @@ namespace App\Logics\Flow;
 use App\Core\Data\Flow\FlowIndexData;
 use App\Core\Logics\Flow\FlowIndexLogicBase;
 use App\Models\Action;
-use App\Models\Role;
 use Illuminate\Http\JsonResponse;
 use Spatie\LaravelData\Data;
 
@@ -45,6 +44,7 @@ class FlowIndexLogic extends FlowIndexLogicBase
         return [
             'roles' => 'auth.role.index',
             'actions' => 'auth.action.index',
+            'actions' => 'auth.role.actions.index',
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\Actions\ActionRoleController;
 use App\Http\Controllers\V1\Roles\RoleActionController;
 use App\Http\Controllers\V1\Roles\RoleController;
 use Illuminate\Support\Facades\Route;
@@ -9,4 +10,8 @@ Route::controller(RoleActionController::class)->group(function () {
 });
 Route::controller(RoleController::class)->group(function () {
     Route::get('', 'index')->middleware('isAllow:auth.role.index');
+});
+
+Route::controller(ActionRoleController::class)->group(function () {
+    Route::get('/{id}/actions', 'index')->middleware('isAllow:auth.role.actions.index');
 });

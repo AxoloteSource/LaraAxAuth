@@ -20,6 +20,7 @@ class MeLogic extends Logic
     protected function action(): Logic
     {
         $this->model = $this->user();
+
         return $this;
     }
 

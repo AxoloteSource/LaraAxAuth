@@ -24,13 +24,28 @@ abstract class ShowLogic extends Logic
 
     protected function before(): bool
     {
+        $this->model = $this->model->find($this->input->id);
+        $foundModel = $this->model->find($this->input->id);
+
+        if (is_null($foundModel)) {
+            return $this->error(message: 'Not Found', status: Http::NotFound);
+        }
+
+        $this->model = $foundModel;
+
         return true;
     }
 
     protected function action(): self
     {
-        $this->model = $this->makeQuery()->first();
-        $this->response = collect($this->model);
+        $foundModel = $this->makeQuery()->first();
+
+        if ($foundModel) {
+            $this->model = $foundModel;
+            $this->response = collect($this->model);
+        } else {
+            $this->response = null;
+        }
 
         return $this;
     }
@@ -43,7 +58,7 @@ abstract class ShowLogic extends Logic
     protected function makeQuery(): Builder
     {
         if (method_exists($this->model, 'scopeShow') || method_exists($this->model, 'show')) {
-            return $this->model->show();
+            return $this->model->show($this->input->id);
         }
 
         return $this->model->newQuery()

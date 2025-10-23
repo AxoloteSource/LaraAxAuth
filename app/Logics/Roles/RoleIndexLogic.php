@@ -10,23 +10,23 @@ use Spatie\LaravelData\Data;
 
 class RoleIndexLogic extends IndexLogic
 {
-  public function __construct(protected Role $role)
-  {
-    parent::__construct($role);
-  }
+    public function __construct(protected Role $role)
+    {
+        parent::__construct($role);
+    }
 
-  public function run(IndexData|Data $input): JsonResponse
-  {
-    return parent::logic($input);
-  }
+    public function run(IndexData|Data $input): JsonResponse
+    {
+        return parent::logic($input);
+    }
 
-  public function tableHeaders(): array
-  {
-    return [
-      'name' => __('Nombre'),
-      'description' => __('Descripción'),
-      'key' => __('key'),
-      'actions' => __('Acciones'),
-    ];
-  }
+    public function tableHeaders(): array
+    {
+        return [
+            'name' => __('Nombre'),
+            'description' => __('Descripción'),
+            'key' => __('key'),
+            'actions' => __('Acciones'),
+        ];
+    }
 }

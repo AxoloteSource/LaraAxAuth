@@ -18,13 +18,18 @@ trait FlowLogic
 
     protected function withResource(): mixed
     {
-        if (array_key_exists($this->modelRoute, $this->resources())) {
-            $resource = $this->resources()[$this->modelRoute];
-
-            return $resource::collection($this->response);
+        if (! array_key_exists($this->modelRoute, $this->resources())) {
+            return $this->response;
         }
 
-        return $this->response;
+        $resource = $this->resources()[$this->modelRoute];
+        $array = $this->response->toArray();
+
+        if (! array_is_list($array)) {
+            return new $resource($this->model);
+        }
+
+        return $resource::collection($this->response);
     }
 
     private function validIsAllowModel(): bool

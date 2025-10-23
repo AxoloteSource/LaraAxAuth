@@ -52,7 +52,7 @@ abstract class Logic
         return $this->logic($input);
     }
 
-    final protected function logic(Data $input): JsonResponse|self
+    final protected function logic(Data $input): JsonResponse|StreamedResponse|self
     {
         $this->input = $input;
 
