@@ -40,6 +40,7 @@ class ActionRoleIndexTest extends TestCase
     {
         $this->loginAdmin()->attachAction(['auth.role.actions.index']);
         $role = Role::factory()->create();
+        Action::factory()->count(10)->create();
         $response = $this->get("/api/v1/roles/{$role->id}/actions");
         $response->assertStatus(206);
         $response->assertJsonStructure([
@@ -49,9 +50,7 @@ class ActionRoleIndexTest extends TestCase
             'total',
         ]);
         $response->assertJsonCount(0, 'data');
-        $response->assertJson([
-            'total' => 0,
-        ]);
+        $response->assertJson(['total' => 0]);
     }
 
     public function test_action_role_index_validate_total(): void
