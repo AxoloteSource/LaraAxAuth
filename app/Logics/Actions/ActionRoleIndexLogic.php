@@ -33,4 +33,14 @@ class ActionRoleIndexLogic extends IndexLogic
         });
         return RoleActionResource::collection($response);
     }
+
+    protected function tableHeaders(): array
+    {
+        return [
+            'name' => __('Nombre'),
+            'description' => __('Descripción'),
+            'active' => __('Activo'),
+            'actions' => __('Acciones'),
+        ];
+    }
 }
