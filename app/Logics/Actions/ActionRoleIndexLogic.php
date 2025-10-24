@@ -6,6 +6,7 @@ use App\Core\Data\IndexData;
 use App\Core\Logics\IndexLogic;
 use App\Http\Resources\Actions\RoleActionResource;
 use App\Models\Action;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Spatie\LaravelData\Data;
@@ -22,16 +23,16 @@ class ActionRoleIndexLogic extends IndexLogic
         return parent::logic($input);
     }
 
+    public function makeQuery(): Builder
+    {
+        $query = $this->model->newQuery();
+        $query->withExists(['roles as active']);
+        return $query;
+    }
+
     protected function withResource(): AnonymousResourceCollection
     {
-        $asignedActions = Action::whereHas('roles', function ($query) {
-            $query->where('roles.id', $this->input->id);
-        })->pluck('id');
-        $response = $this->response->map(function ($action) use ($asignedActions) {
-            $action->active = $asignedActions->contains($action->id);
-            return $action;
-        });
-        return RoleActionResource::collection($response);
+        return RoleActionResource::collection($this->response);
     }
 
     protected function tableHeaders(): array
