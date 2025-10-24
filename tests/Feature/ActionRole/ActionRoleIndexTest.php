@@ -22,6 +22,7 @@ class ActionRoleIndexTest extends TestCase
                     'id',
                     'name',
                     'description',
+                    'active',
                     'deleted_at',
                     'created_at',
                     'updated_at',
@@ -36,40 +37,44 @@ class ActionRoleIndexTest extends TestCase
         ]);
     }
 
-    public function test_action_role_index_returns_empty_when_no_actions(): void
+    public function test_assigned_actions(): void
     {
         $this->loginAdmin()->attachAction(['auth.role.actions.index']);
         $role = Role::factory()->create();
-        Action::factory()->count(10)->create();
+        $assignedActions = Action::factory()->count(2)->create();
+        $unassignedActions = Action::factory()->count(2)->create();
+
+        $role->actions()->attach($assignedActions->pluck('id'));
         $response = $this->get("/api/v1/roles/{$role->id}/actions");
         $response->assertStatus(206);
-        $response->assertJsonStructure([
-            'data',
-            'current_page',
-            'per_page',
-            'total',
-        ]);
-        $response->assertJsonCount(0, 'data');
-        $response->assertJson(['total' => 0]);
+
+        foreach ($assignedActions as $action) {
+            $response->assertJsonFragment([
+                'id' => $action->id,
+                'active' => true
+            ]);
+        }
+
+        foreach ($unassignedActions as $action) {
+            $response->assertJsonFragment([
+                'id' => $action->id,
+                'active' => false
+            ]);
+        }
     }
 
-    public function test_action_role_index_validate_total(): void
+    public function test_unassigned_actions(): void
     {
         $this->loginAdmin()->attachAction(['auth.role.actions.index']);
         $role = Role::factory()->create();
-        $action = Action::factory()->create();
-        $role->actions()->attach($action);
+        $actions = Action::factory()->count(10)->create();
         $response = $this->get("/api/v1/roles/{$role->id}/actions");
         $response->assertStatus(206);
-        $response->assertJsonStructure([
-            'data',
-            'current_page',
-            'per_page',
-            'total',
-        ]);
-        $response->assertJsonCount(1, 'data');
-        $response->assertJson([
-            'total' => 1,
-        ]);
+        foreach ($actions as $action) {
+            $response->assertJsonFragment([
+                'id' => $action->id,
+                'active' => false
+            ]);
+        }
     }
 }

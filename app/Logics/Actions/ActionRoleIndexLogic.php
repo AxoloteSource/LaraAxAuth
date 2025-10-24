@@ -18,23 +18,30 @@ class ActionRoleIndexLogic extends IndexLogic
         parent::__construct($action);
     }
 
-    public function makeQuery(): Builder
-    {
-        $query = $this->model->newQuery();
-        $query->whereHas('roles', function ($query) {
-            $query->where('roles.id', $this->input->id);
-        });
-
-        return $query;
-    }
-
     public function run(IndexData|Data $input): JsonResponse
     {
         return parent::logic($input);
     }
 
+    public function makeQuery(): Builder
+    {
+        $query = $this->model->newQuery();
+        $query->withExists(['roles as active']);
+        return $query;
+    }
+
     protected function withResource(): AnonymousResourceCollection
     {
         return RoleActionResource::collection($this->response);
+    }
+
+    protected function tableHeaders(): array
+    {
+        return [
+            'name' => __('Nombre'),
+            'description' => __('Descripción'),
+            'active' => __('Activo'),
+            'actions' => __('Acciones'),
+        ];
     }
 }
