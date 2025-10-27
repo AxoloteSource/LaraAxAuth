@@ -14,4 +14,5 @@ Route::controller(RoleController::class)->group(function () {
 
 Route::controller(ActionRoleController::class)->group(function () {
     Route::get('/{id}/actions', 'index')->middleware('isAllow:auth.role.actions.index');
+    Route::put('/{id}/actions/{actionId}', 'update')->middleware('isAllow:auth.role.actions.update');
 });
