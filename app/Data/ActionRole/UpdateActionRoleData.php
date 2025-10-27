@@ -11,8 +11,8 @@ class UpdateActionRoleData extends Data
     public function __construct(
         #[FromRouteParameter('id'), Rule(['required', 'exists:roles,id'])]
         public string $id,
-        #[Rule(['required', 'exists:actions,id'])]
-        public string $action_id,
+        #[FromRouteParameter('actionId'), Rule(['required', 'exists:actions,id'])]
+        public string $actionId,
         #[Rule(['required', 'boolean'])]
         public bool $active,
     ) {}

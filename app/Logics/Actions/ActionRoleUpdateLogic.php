@@ -25,7 +25,7 @@ class ActionRoleUpdateLogic extends UpdateLogic
     protected function before(): bool
     {
         $id = $this->input->id;
-        $action = $this->model->find($this->input->action_id);
+        $action = $this->model->find($this->input->actionId);
         $this->input->active ? $action->roles()->syncWithoutDetaching([$id]) : $action->roles()->detach($id);
         return true;
     }

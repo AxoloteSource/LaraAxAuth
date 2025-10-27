@@ -21,8 +21,7 @@ class ActionRoleUpdateTest extends TestCase
             'role_id' => $role->id,
         ]);
 
-        $response = $this->put("/api/v1/roles/{$role->id}/actions", [
-            'action_id' => $action->id,
+        $response = $this->put("/api/v1/roles/{$role->id}/actions/{$action->id}", [
             'active' => true,
         ]);
 
@@ -45,8 +44,7 @@ class ActionRoleUpdateTest extends TestCase
             'role_id' => $role->id,
         ]);
 
-        $response = $this->put("/api/v1/roles/{$role->id}/actions", [
-            'action_id' => $action->id,
+        $response = $this->put("/api/v1/roles/{$role->id}/actions/{$action->id}", [
             'active' => false,
         ]);
 
