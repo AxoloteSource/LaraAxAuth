@@ -58,7 +58,6 @@ class ActionRoleIndexLogic extends IndexLogic
         return [
             'name' => __('Nombre'),
             'description' => __('Descripción'),
-            'active' => __('Activo'),
             'actions' => __('Acciones'),
         ];
     }
