@@ -2,6 +2,7 @@
 
 namespace App\Logics\Actions;
 
+use App\Core\Classes\Filter;
 use App\Core\Data\IndexData;
 use App\Core\Logics\IndexLogic;
 use App\Http\Resources\Actions\RoleActionResource;
@@ -33,6 +34,23 @@ class ActionRoleIndexLogic extends IndexLogic
     protected function withResource(): AnonymousResourceCollection
     {
         return RoleActionResource::collection($this->response);
+    }
+
+    function searchActive(Filter $filter)
+    {
+        if (filter_var($filter->value, FILTER_VALIDATE_BOOLEAN)) {
+            $this->queryBuilder->whereHas('roles');
+        } else {
+            $this->queryBuilder->whereDoesntHave('roles');
+        }
+    }
+
+    protected function customFilters(): array
+    {
+        return [
+            'active' => fn(Filter $filter) => $this->searchActive($filter),
+            'name' => fn(Filter $filter) => $this->queryBuilder->where('name', 'like', "%{$filter->value}%"),
+        ];
     }
 
     protected function tableHeaders(): array
