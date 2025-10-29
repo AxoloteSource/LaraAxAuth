@@ -56,8 +56,8 @@ class ActionRoleIndexLogic extends IndexLogic
     protected function tableHeaders(): array
     {
         return [
-            'name' => __('Nombre'),
             'description' => __('Descripción'),
+            'name' => __('Nombre'),
             'actions' => __('Acciones'),
         ];
     }
