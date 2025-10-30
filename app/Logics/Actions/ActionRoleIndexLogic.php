@@ -27,7 +27,9 @@ class ActionRoleIndexLogic extends IndexLogic
     public function makeQuery(): Builder
     {
         $query = $this->model->newQuery();
-        $query->withExists(['roles as active']);
+        $query->withExists(['roles as active' => function ($query) {
+            $query->where('role_id', $this->input->id);
+        }]);
         return $query;
     }
 
