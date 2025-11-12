@@ -40,11 +40,7 @@ class ActionRoleIndexLogic extends IndexLogic
 
     function searchActive(Filter $filter)
     {
-        if (filter_var($filter->value, FILTER_VALIDATE_BOOLEAN)) {
-            $this->queryBuilder->whereHas('roles');
-        } else {
-            $this->queryBuilder->whereDoesntHave('roles');
-        }
+        $this->queryBuilder->having('active', '=', filter_var($filter->value, FILTER_VALIDATE_BOOLEAN));
     }
 
     protected function customFilters(): array
