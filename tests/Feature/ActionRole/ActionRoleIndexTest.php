@@ -75,7 +75,7 @@ class ActionRoleIndexTest extends TestCase
 
     public function test_search_action_name(): void
     {
-        $this->loginAdmin();
+        $this->loginAdmin()->attachAction(['auth.role.actions.index']);
         $role = Role::factory()->create();
 
         $customAction = Action::factory()->create([
@@ -92,7 +92,7 @@ class ActionRoleIndexTest extends TestCase
 
     public function test_search_action_description(): void
     {
-        $this->loginAdmin();
+        $this->loginAdmin()->attachAction(['auth.role.actions.index']);
         $role = Role::factory()->create();
 
         $customAction = Action::factory()->create([
@@ -110,7 +110,7 @@ class ActionRoleIndexTest extends TestCase
 
     public function test_only_active_actions(): void
     {
-        $this->loginAdmin();
+        $this->loginAdmin()->attachAction(['auth.role.actions.index']);
         $role = Role::factory()->create();
         //unassigned actions
         Action::factory()->count(2)->create();
@@ -131,7 +131,7 @@ class ActionRoleIndexTest extends TestCase
 
     public function test_only_inactive_actions(): void
     {
-        $this->loginAdmin();
+        $this->loginAdmin()->attachAction(['auth.role.actions.index']);
         $role = Role::factory()->create();
         //unassigned actions
         Action::factory()->count(10)->create();
