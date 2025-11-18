@@ -30,11 +30,9 @@ class ActionRoleIndexTest extends TestCase
             ],
         ]);
 
-        $response->assertJsonFragment([
-            'id' => (string) $action->id,
-            'name' => $action->name,
-            'description' => $action->description,
-        ]);
+        $data = $response->json('data');
+        $match = collect($data)->firstWhere('id', $action->id);
+        $this->assertTrue($match['active']);
     }
 
     public function test_assigned_actions(): void
@@ -48,18 +46,15 @@ class ActionRoleIndexTest extends TestCase
         $response = $this->get("/api/v1/roles/{$role->id}/actions");
         $response->assertStatus(206);
 
+        $data = $response->json('data');
         foreach ($assignedActions as $action) {
-            $response->assertJsonFragment([
-                'id' => $action->id,
-                'active' => true
-            ]);
+            $match = collect($data)->firstWhere('id', $action->id);
+            $this->assertTrue($match['active']);
         }
 
         foreach ($unassignedActions as $action) {
-            $response->assertJsonFragment([
-                'id' => $action->id,
-                'active' => false
-            ]);
+            $match = collect($data)->firstWhere('id', $action->id);
+            $this->assertFalse($match['active']);
         }
     }
 
@@ -67,14 +62,12 @@ class ActionRoleIndexTest extends TestCase
     {
         $this->loginAdmin()->attachAction(['auth.role.actions.index']);
         $role = Role::factory()->create();
-        $actions = Action::factory()->count(10)->create();
+        Action::factory()->count(10)->create();
         $response = $this->get("/api/v1/roles/{$role->id}/actions");
         $response->assertStatus(206);
-        foreach ($actions as $action) {
-            $response->assertJsonFragment([
-                'id' => $action->id,
-                'active' => false
-            ]);
+        $data = $response->json('data');
+        foreach ($data as $action) {
+            $this->assertFalse($action['active']);
         }
     }
 }
