@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\AttachRolesCommand;
 use App\Core\Middleware\IsAllow;
 use App\Core\Middleware\SetHeaders;
 use App\Core\Middleware\TransactionMiddleware;
@@ -35,4 +36,6 @@ return Application::configure(basePath: dirname(__DIR__))
                 $e->errors(),
             );
         });
-    })->create();
+    })->withCommands([
+        AttachRolesCommand::class,
+    ])->create();

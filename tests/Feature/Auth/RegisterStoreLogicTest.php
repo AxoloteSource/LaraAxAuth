@@ -62,7 +62,7 @@ class RegisterStoreLogicTest extends TestCase
             'email' => $email,
             'role_id' => RoleEnum::Admin,
         ]);
-
+        $this->assertArrayNotHasKey('password', $userData, 'El campo password no debe estar presente en la respuesta del usuario');
         $this->assertArrayHasKey('access_token', $responseData, 'El token de acceso no está presente en la respuesta');
 
     }

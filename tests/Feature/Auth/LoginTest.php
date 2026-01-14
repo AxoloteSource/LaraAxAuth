@@ -63,6 +63,7 @@ class LoginTest extends TestCase
 
         $this->assertEquals($user->id, $userData['id']);
         $this->assertEquals($user->email, $userData['email']);
+        $this->assertArrayNotHasKey('password', $userData, 'El campo password no debe estar presente en la respuesta del usuario');
 
         $this->assertArrayHasKey('access_token', $responseData, 'El token de acceso no está presente en la respuesta');
     }
