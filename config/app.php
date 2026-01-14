@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Away URL
+    |--------------------------------------------------------------------------
+    |
+    | This URL is used to redirect users from the main route to an external
+    | frontend application or service.
+    |
+    */
+
+    'away_url' => env('AWAY_FRONTEND_URL', 'https://www.google.com'),
+
 ];
