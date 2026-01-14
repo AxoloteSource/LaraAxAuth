@@ -13,7 +13,7 @@ class IsAllow
     {
         if (! $request->user()->belongsToAction($action)) {
             return Response::error(
-                message: 'You do not have permission to access this resource',
+                message: __('You do not have permission to access this resource'),
                 data: ['action' => $action],
                 status: Http::Forbidden
             );

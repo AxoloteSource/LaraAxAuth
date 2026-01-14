@@ -5,6 +5,7 @@ namespace App\Core\Logics;
 use App\Core\CoreLogic;
 use App\Core\ErrorContainer;
 use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
@@ -91,9 +92,9 @@ abstract class Logic
         return Response::success($this->withResource());
     }
 
-    protected function user(): ?User
+    protected function user(): ?Authenticatable
     {
-        /** @var User|null $user */
+        /** @var User|Authenticatable|Model|null $user */
         $user = auth()->user();
 
         return $user;

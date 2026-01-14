@@ -48,7 +48,7 @@ class RoleIndexTest extends TestCase
 
         $response->assertJsonFragment([
             'name' => 'Root',
-            'description' => 'User root',
+            'description' => 'Super administrator with unrestricted access to all system features and actions',
         ]);
 
         $response->assertJsonCount(1, 'data');

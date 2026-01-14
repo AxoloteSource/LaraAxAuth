@@ -52,7 +52,7 @@ class ActionShowTest extends TestCase
 
         $response->assertJson([
             'status' => 'error',
-            'message' => 'You do not have permission to access this resource',
+            'message' => __('You do not have permission to access this resource'),
             'data' => [
                 'action' => 'auth.action.show',
             ],
